@@ -1,0 +1,29 @@
+#include "Fraction.hpp"
+#include <iostream>
+using namespace std;
+
+    Fraction operator+(const Fraction& other);
+    Fraction operator+(const double d, const Fraction& f);
+    Fraction operator+(const double num,const Fraction& itself);
+    Fraction operator-(const Fraction& other){}
+    Fraction operator-(const int num, const Fraction& itself);
+    Fraction operator*(const Fraction& other);
+    Fraction operator*(double dob, const Fraction& frac);
+    Fraction operator/(const Fraction& itself, const Fraction& other);
+    bool operator==(const Fraction& itself, const Fraction& other);
+    bool operator==(const double);
+    bool operator<(const Fraction& itself ,const Fraction& other);
+    bool operator<=(const Fraction& itself, const Fraction& other);
+    bool operator>(const Fraction& itself, const Fraction& other);
+    bool operator>(const Fraction& itself, double);
+    bool operator>=(const Fraction& itself, const Fraction& other);
+    Fraction& operator++(const Fraction& itself);
+    //Fraction& operator++(int num);
+    Fraction& operator++(){}
+    Fraction& operator++(int);
+    Fraction& operator--(const Fraction& itself);
+    Fraction& operator--(int);
+    Fraction operator>>(const Fraction& other);
+    ostream& operator<<(ostream& os,const Fraction& other);
+    ostream& operator<<(const Fraction& other, ostream& os);
+    Fraction(int num1 ,int num2);
