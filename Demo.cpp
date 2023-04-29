@@ -23,12 +23,22 @@ int main() {
     Fraction temp1 =f1 * f3;
     Fraction temp2 =f3 * 0.25;
     Fraction temp3 = 3 * f3;
-    if(f3 == f2){
-        cout << "good" << endl;
+    if(0.5 >= f2){
+        cout << "good1" << endl;
     }
-    cout << temp1.numerator <<"/" << temp1.denominator <<endl;
-    cout << temp2.numerator <<"/" << temp2.denominator <<endl;
-    cout << temp3.numerator <<"/" << temp3.denominator <<endl;
+    if(f2 >= 0.5){
+        cout << "good2" << endl;
+    }
+    if(f3 >= f2){
+        cout << "good3" << endl;
+    }    
+
+    Fraction f(1,1);
+    std::cout << "Enter a fraction (e.g. 3/4): ";
+    std::cin >> f;
+    std::cout << "You entered: " << f << std::endl;    
+    //cout << temp2.numerator <<"/" << temp2.denominator <<endl;
+    //cout << temp3.numerator <<"/" << temp3.denominator <<endl;
 
     /*/
     Fraction a(5,3), b(14,21);

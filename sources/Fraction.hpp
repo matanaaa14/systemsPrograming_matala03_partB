@@ -56,7 +56,7 @@ public:
     Fraction& operator--();
     Fraction operator--(int);
 
-    Fraction operator>>(const Fraction& other);
+    friend std::istream& operator>>(std::istream& input, Fraction& fraction);
 
     friend std::ostream& operator<<(std::ostream& ostreamm, const Fraction& other);
 

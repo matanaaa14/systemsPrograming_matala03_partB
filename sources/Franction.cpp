@@ -107,7 +107,8 @@ namespace ariel{}
     bool Fraction::operator<(const Fraction& other){
       Fraction stam1 = other;
       Fraction temp = stam1 - *this;
-      if((temp.numerator > 0 || temp.denominator > 0)||(temp.numerator < 0 || temp.denominator < 0) )
+      cout << "check: " << temp.numerator << "/" << temp.denominator << endl;
+      if((temp.numerator > 0 & temp.denominator > 0)||(temp.numerator < 0 & temp.denominator < 0) )
           return true;
       return false;
     }
@@ -125,69 +126,87 @@ namespace ariel{}
     }
     
     bool Fraction::operator<=(const Fraction& other){
+      Fraction temp = *this;
+      if(temp < other || temp == other)
+        return true;
       return false;
     }
-    bool operator<=(const Fraction& fraction1, const Fraction& fraction2){
+    bool operator<=(float num ,const Fraction& fraction){
+      Fraction temp1 = fraction;
+      Fraction temp2 = temp1.convert(num);
+      if(temp1 < temp2 || temp1 == temp2)
+        return true;
       return false;
     }
     
-    bool operator<=(const Fraction& f, double num){
-      return false;
+    bool operator<=(const Fraction& fraction, float num){
+      Fraction nothing(1,1);
+      Fraction temp = nothing.convert(num);
+      Fraction temp2 = fraction;
+      return temp2 <= temp;
     }
     
     bool Fraction::operator>(const Fraction& other){
-      return false;
+      if (*this == other){
+        return false;
+      }
+      return !(*this < other);
     }
     
     bool Fraction::operator>(float num){
-      return false;
+      Fraction nothing(1,1);
+      Fraction temp = nothing.convert(num);
+      return *this > temp;
     }
-    bool operator>(const Fraction& fraction1, const Fraction& fraction2){
-      return false;
+    bool operator>(float num, const Fraction& fraction){
+      return fraction < num;
     }
     
-    bool operator>(const Fraction& f, double num){
-      return false;
+    bool operator>(const Fraction& fraction, float num){
+      return num < fraction;
     }
     
     bool Fraction::operator>=(const Fraction& other){
-      return false;
+      return (*this > other || *this == other);
     }
-    bool operator>=(const Fraction& fraction1, const Fraction& fraction2){
-      return false;
+    bool operator>=(float num, const Fraction& fraction){
+      return !(num < fraction);
     }
     
-    bool operator>=(const Fraction& f, double num){
-      return false;
+    bool operator>=(const Fraction& fraction, float num){
+      return !(fraction < num);
     }
     
     Fraction& Fraction::operator++(){
+      Fraction temp(this->numerator + this->denominator, this->denominator);
+      this->numerator = temp.numerator;
+      this->denominator = temp.denominator;
       return *this;
-
     }
     
     Fraction Fraction::operator++(int){
-      Fraction fb(1,2);
-      return fb;
+      Fraction temp(this->numerator + this->denominator, this->denominator);
+      this->numerator = temp.numerator;
+      this->denominator = temp.denominator;
+      return *this;
     }
     
     Fraction& Fraction::operator--(){
-    return *this;
+      Fraction temp(this->numerator - this->denominator, this->denominator);
+      this->numerator = temp.numerator;
+      this->denominator = temp.denominator;
+      return *this;
     }
     
     Fraction Fraction::operator--(int){
-        Fraction fc(1,2);
-        return fc;
+      Fraction temp(this->numerator - this->denominator, this->denominator);
+      this->numerator = temp.numerator;
+      this->denominator = temp.denominator;
+      return *this;
     }
     
-    Fraction Fraction::operator>>(const Fraction& other){
-      Fraction f(1,2);
-      return f;      }
-    
-    ostream& operator<<(ostream& os,const Fraction& other){
-        ostream& stam = cout;
-        stam << "hello" <<endl;
-        return stam;
+    ostream& operator<<(ostream& output,const Fraction& other){
+        return output << other.numerator << "/" << other.denominator;
       }
     
     // implementation of friend functions
@@ -201,9 +220,13 @@ namespace ariel{}
       Fraction f3(1,2);
       return f;      }/*/
     
-    Fraction operator>>(const Fraction& f, int num){
-      Fraction q(1,2);
-      return q;     }
+    istream& operator>>(istream& input, Fraction& fraction){
+      char slash;
+      input >> fraction.numerator >> slash >> fraction.denominator; 
+      Fraction temp(fraction.numerator,fraction.denominator);
+      fraction = temp;
+      return input;
+  }
     
     Fraction::Fraction(int num1, int num2){
       int gcd = GCD(num1, num2);
