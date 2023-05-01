@@ -9,24 +9,26 @@ class Fraction {
 public:
     int numerator, denominator;
     Fraction(int, int);
+    Fraction(float num);
+    Fraction();
 
-    Fraction operator+(const Fraction& other);
-    Fraction operator+(float num);
+    Fraction operator+(const Fraction& other)const;
+    Fraction operator+(float num)const;
     friend Fraction operator+(float num, const Fraction& fraction);
     //friend Fraction operator+(const Fraction& fraction,float num);
     
-    Fraction operator-(const Fraction& other);
-    Fraction operator-(float num);
+    Fraction operator-(const Fraction& other)const;
+    Fraction operator-(float num)const;
     friend Fraction operator-(float num, const Fraction& fraction);
     //friend Fraction operator-(const Fraction& fraction,float num);
 
-    Fraction operator*(const Fraction& other);
-    Fraction operator*(float num);
+    Fraction operator*(const Fraction& other)const;
+    Fraction operator*(float num)const;
     friend Fraction operator*(float num, const Fraction& fraction);
     //friend Fraction operator*(const Fraction& fraction,float num);
 
-    Fraction operator/(const Fraction& other);
-    Fraction operator/(float num);
+    Fraction operator/(const Fraction& other)const;
+    Fraction operator/(float num)const;
     friend Fraction operator/(float num, const Fraction& fraction);
     //friend Fraction operator/(const Fraction& fraction,float num);
 
@@ -34,22 +36,21 @@ public:
     friend bool operator==(float num, const Fraction& fraction);
     friend bool operator==(const Fraction& fraction,float num);
 
-    bool operator<(const Fraction& other);
+    bool operator<(const Fraction& other)const;
+    bool operator<(float num)const;
     friend bool operator<(float num, const Fraction& fraction);
-    friend bool operator<(const Fraction& fraction,float num);
 
-    bool operator<=(const Fraction& other);
+    bool operator<=(const Fraction& other)const;
     friend bool operator<=(float num, const Fraction& fraction);
-    friend bool operator<=(const Fraction& fraction,float num);
+    bool operator<=(float num)const;
 
-    bool operator>(const Fraction& other);
-    bool operator>(float num);
+    bool operator>(const Fraction& other)const;
+    bool operator>(float num)const;
     friend bool operator>(float num, const Fraction& fraction);
-    friend bool operator>(const Fraction& fraction,float num);
 
-    bool operator>=(const Fraction& other);
+    bool operator>=(const Fraction& other) const;
     friend bool operator>=(float num, const Fraction& fraction);
-    friend bool operator>=(const Fraction& fraction,float num);
+    bool operator>=(float num)const;
 
     Fraction& operator++();
     Fraction operator++(int);
@@ -61,7 +62,11 @@ public:
     friend std::ostream& operator<<(std::ostream& ostreamm, const Fraction& other);
 
     int GCD(int num1 ,int num2);
-    Fraction convert(float num);
+    Fraction convert(float num)const;
+
+    int getNumerator();
+    int getDenominator();
+
 };
 
 
