@@ -9,37 +9,21 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <limits>
 using namespace std;
 
 #include "sources/Fraction.hpp"
 
 using namespace ariel;
+#define MAX_INT numeric_limits<int>::max()
 
 
 int main() {
-    Fraction f1(2,3);
-    Fraction f2(1,5);
-    Fraction f3(2,10);
-    Fraction temp1 =f1 * f3;
-    Fraction temp2 =f3 * 0.25;
-    Fraction temp3 = 3 * f3;
-    if(0.5 >= f2){
-        cout << "good1" << endl;
-    }
-    if(f2 >= 0.5){
-        cout << "good2" << endl;
-    }
-    if(f3 >= f2){
-        cout << "good3" << endl;
-    }    
-
-    Fraction f(1,1);
-    std::cout << "Enter a fraction (e.g. 3/4): ";
-    std::cin >> f;
-    std::cout << "You entered: " << f << std::endl;    
-    //cout << temp2.numerator <<"/" << temp2.denominator <<endl;
-    //cout << temp3.numerator <<"/" << temp3.denominator <<endl;
-
+    Fraction temp{11,15};
+    Fraction temp2{11,13};
+    cout << temp << endl;
+    cout << temp2 << endl;
+    float num1 = 2.5;
     /*/
     Fraction a(5,3), b(14,21);
     cout << "a: " << a << "b: " << b << endl;

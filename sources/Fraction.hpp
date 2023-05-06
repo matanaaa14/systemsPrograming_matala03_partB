@@ -52,7 +52,7 @@ public:
     friend bool operator>=(float num, const Fraction& fraction);
     bool operator>=(float num)const;
 
-    Fraction& operator++();
+    Fraction operator++();
     Fraction operator++(int);
     Fraction& operator--();
     Fraction operator--(int);
