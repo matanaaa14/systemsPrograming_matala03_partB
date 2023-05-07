@@ -19,11 +19,14 @@ using namespace ariel;
 
 
 int main() {
-    Fraction temp{11,15};
-    Fraction temp2{11,13};
-    cout << temp << endl;
-    cout << temp2 << endl;
-    float num1 = 2.5;
+    Fraction temp{2147483647,1};
+    Fraction temp2{2147483647,1};
+    //    CHECK_EQ(2.0 * (Fraction{-1, 4} + Fraction{-1, 2}), 2.0 * Fraction{-1, 4} + 2.0 * Fraction{-1, 2});
+    Fraction a1(-1,4);
+    Fraction a2(-1,2);
+    Fraction b1 = temp + temp2;
+    cout << b1 << endl;
+
     /*/
     Fraction a(5,3), b(14,21);
     cout << "a: " << a << "b: " << b << endl;

@@ -1,6 +1,7 @@
 #include "Fraction.hpp"
 #include <iostream>
 #include <limits>
+#include <limits.h>
 #include <cstdlib>
 
 using namespace std;
@@ -11,47 +12,89 @@ namespace ariel{}
 
     // implementation of member functions
     Fraction Fraction::operator+(const Fraction& other)const{
-      Fraction f(this->numerator * other.denominator +other.numerator *this->denominator, this->denominator *other.denominator);
+      int num2 = 0; 
+      if(__builtin_add_overflow(this->numerator * other.denominator,other.numerator *this->denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);
+      }
+
+      Fraction f(this->numerator * other.denominator + other.numerator *this->denominator, this->denominator *other.denominator);
       return f;
     }
     
     Fraction Fraction::operator+(float num)const{
       Fraction temp = convert(num);
+      int num2;
+      if(__builtin_add_overflow(this->numerator * temp.denominator,temp.numerator *this->denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);
+      }
       Fraction result(this->numerator * temp.denominator +temp.numerator *this->denominator, this->denominator *temp.denominator) ;
       return result;}
               
-    Fraction operator+(float num,const Fraction& fraction){
+      Fraction operator+(float num,const Fraction& fraction){
       Fraction temp = fraction.convert(num);
+      int num2;
+      if(__builtin_add_overflow(fraction.numerator * temp.denominator ,temp.numerator *fraction.denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);
+      }
       Fraction result(fraction.numerator * temp.denominator +temp.numerator *fraction.denominator, fraction.denominator *temp.denominator);   
       return result;}
 
 
 
     Fraction Fraction::operator-(const Fraction& other)const{
+      int num2;
+      if(__builtin_sub_overflow(this->numerator * other.denominator ,other.numerator *this->denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);
+      }
       Fraction f(this->numerator * other.denominator -other.numerator *this->denominator, this->denominator *other.denominator);
       return f;   }
-    
+
     Fraction Fraction::operator-(float num)const{
-      
+      int num2;
       Fraction temp = convert(num);
+      if(__builtin_sub_overflow(this->numerator * temp.denominator ,temp.numerator *this->denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);
+      }
       Fraction result(this->numerator * temp.denominator -temp.numerator *this->denominator, this->denominator *temp.denominator) ;
       return result;   }
     
 
     Fraction operator-(float num,const Fraction& fraction){
       Fraction temp = fraction.convert(num);
-      cout << "check: " << temp.numerator << "/" << temp.denominator << endl;
       //Fraction result(fraction.numerator * temp.denominator -temp.numerator *fraction.denominator, fraction.denominator *temp.denominator);   
       Fraction result = temp - fraction;
       return result;   }
 
 
     Fraction Fraction::operator*(const Fraction& other)const{
+      int num2;
+      if(__builtin_mul_overflow(this->numerator,other.numerator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
+      if(__builtin_mul_overflow(this->denominator,other.denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
       Fraction f(this->numerator * other.numerator,this->denominator * other.denominator);
       return f; }
 
     Fraction Fraction::operator*(float num)const{
       Fraction temp = convert(num);
+      int num2;
+      if(__builtin_mul_overflow(this->numerator,temp.numerator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
+      if(__builtin_mul_overflow(this->denominator,temp.denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
       Fraction result(this->numerator * temp.numerator, this->denominator *temp.denominator) ;
       return result;   }
     
@@ -70,6 +113,15 @@ namespace ariel{}
         __throw_runtime_error("ERROR: denominator can't be-0\n");
         exit(1);
       }
+      int num2;
+      if(__builtin_mul_overflow(this->numerator,other.denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
+      if(__builtin_mul_overflow(this->denominator,other.numerator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
       Fraction result(this->numerator * other.denominator,this->denominator * other.numerator);
       return result;  }
 
@@ -80,6 +132,15 @@ namespace ariel{}
         exit(1);
       }
       Fraction temp = convert(num);
+      int num2;
+      if(__builtin_mul_overflow(this->numerator,temp.denominator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
+      if(__builtin_mul_overflow(this->denominator,temp.numerator,&num2)){
+        __throw_overflow_error("numbers to big\n");
+        exit(1);   
+      }
       Fraction result(this->numerator * temp.denominator , this->denominator *temp.numerator) ;
       return result;   }
     
@@ -117,7 +178,6 @@ namespace ariel{}
     bool Fraction::operator<(const Fraction& other)const{
       Fraction stam1 = other;
       Fraction temp = stam1 - *this;
-      cout << "check: " << temp.numerator << "/" << temp.denominator << endl;
       if((temp.numerator > 0 & temp.denominator > 0)||(temp.numerator < 0 & temp.denominator < 0) )
           return true;
       return false;
@@ -240,10 +300,10 @@ namespace ariel{}
   }
     
     Fraction::Fraction(int num1, int num2){
-      if( num1 >= MAX_INT ||num2 >= MAX_INT){
+      /*/if( num1 >= MAX_INT ||num2 >= MAX_INT){
         __throw_overflow_error("numbers too big\n");
         exit(1);
-      }
+      }/*/
       if(num2 == 0){
         __throw_invalid_argument("ERROR: denominator can't be-0\n");
         exit(1);
